@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://pokeapi-how.appspot.com/css/jquery.mobile-1.4.5.min.css">
+        
+    <script src="https://pokeapi-how.appspot.com/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="https://pokeapi-how.appspot.com/js/jquery-migrate-3.0.0.min.js" type="text/javascript"></script>
+    <script src="https://pokeapi-how.appspot.com/js/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="https://pokeapi-how.appspot.com/js/additional-methods.min.js" type="text/javascript"></script>
+    <script src="https://pokeapi-how.appspot.com/js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+
+
+    <script type='text/javascript'>
+
+        function pokeSubmit(){
+        
+            document.getElementById("submitButton").className="ui-btn ui-state-disabled";
+            // API accepts lowercase only
+            var param = document.getElementById("pokeInput").value.toLowerCase();
+            var pokeURL = "http://pokeapi.co/api/v1/pokemon/" + param;
+            var pokeURL2 = "http://pokeapi.co/api/v2/pokemon/" + param;
+            //var imageURI = "http://pokeapi.co/media/sprites/pokemon/" + param + ".png";
+            
+            console.log(pokeURL);
+            console.log(pokeURL2);
+               
+            // $.getJSON(pokeURL, function(data){
+            //     console.log(data.name);
+            //     // console.log(JSON.stringify(data, null, "  "));
+            //     document.getElementById('main').innerHTML = data.name;
+
+            // });
+
+            $.getJSON(pokeURL2, function(data){
+                console.log(data.name);
+                // console.log(JSON.stringify(data, null, "  "));
+                var nombre = document.getElementById('main')
+                nombre.innerHTML = `<h1> ${data.name} </h1>` 
+                nombre.innerHTML = `<h1> ${data.name} </h1>`
+                nombre.innerHTML = `<h1> ${data.name} </h1>`
+                console.log(nombre);
+                
+                document.getElementById("submitButton").className="ui-btn";
+
+            });
+        
+        }    
+        
+
+
+        var tID; //we will use this variable to clear the setInterval()
+        function animateScript() {
+            var    position = 256; //start position for the image slicer
+            const  interval = 100; //100 ms of interval for the setInterval()
+            tID = setInterval ( () => {
+                document.getElementById("image").style.backgroundPosition = 
+                `-${position}px 0px`; 
+                //we use the ES6 template literal to insert the variable "position"
+                if (position < 1536)
+                { position = position + 256;}
+                //we increment the position by 256 each time
+                else
+                { position = 256; }
+                //reset the position to 256px, once position exceeds 1536px
+                }
+            , interval ); //end of setInterval
+        } //end of animateScript()
+    </script>
+
+    <title>Devf</title>
+    
+</head>
+   <body>
+   
+    <!-- app search page-->
+        <div data-role="page" id="pokeSearch-page">
+            <div data-role="header" data-theme="b">
+                <h1>Pokeapi</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <form id="pokeForm" action="#pokeDetails-page" method="post">
+                    <div>
+                    <label for="pokeInput">Pokemon name or number:</label>
+                    <input type="text" name="pokeInput" id="pokeInput" placeholder="Name/Number" value="" required pattern=".*\S+.*">
+            
+                    </div>
+                    <br>
+                    <div>
+                    <a id="submitButton" class="ui-btn" onclick="pokeSubmit();">Search</a>
+                    </div>
+                </form>
+                <div id="pokeData">
+                    <ul data-role="listview" data-inset="true" id="pokeDetails">
+                    </ul>
+                </div>
+
+                <div id="main">
+                    <!-- <h1>Prueba</h1> -->
+                </div>
+                <div id="demo">
+                    <p id="image"> </p>
+                </div>
+
+            </div>
+        </div>
+
+        
+        
+
+   </body>
+  
+
+</html>
